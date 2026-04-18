@@ -1,5 +1,6 @@
 # T20 DATASET ANALYSIS
 
+
 import pandas as pd
 import numpy as np
 import ast
@@ -11,9 +12,11 @@ df = pd.read_csv("International T20 Data.csv")
 print(df.head())
 
 
+
 # 1) Rename all column names (replace '.' with '_')
 df.columns = df.columns.str.replace('.', '_', regex=True)
 print(df.columns)
+
 
 
 # 2) Find top 3 venues with most matches
@@ -21,6 +24,8 @@ top_venues = df['info_venue'].value_counts().head(3)
 
 print("Top 3 Venues:")
 print(top_venues)
+
+
 
 
 # 3) Find the pair of teams that played most matches
@@ -43,6 +48,8 @@ print("Teams that played the most matches against each other:")
 print(most_matches_pair)
 
 
+
+
 # 4) Top 5 teams by win percentage
 
 # Matches played
@@ -58,6 +65,8 @@ top5_teams = win_percentage.sort_values(ascending=False).head(5)
 
 print("Top 5 Teams by Win Percentage:")
 print(top5_teams)
+
+
 
 
 # 5) Function to get scorecard of a match
@@ -118,6 +127,14 @@ def get_scorecard(match_index):
 # Example usage
 get_scorecard(0)
 
+
+
+
+
+
+
+
+
 #Pandas lib
 # 1. head() - Shows first rows
 print(df.head()) #
@@ -165,6 +182,11 @@ dropped_df = df.drop('info.gender', axis=1) #
 corr_data = df[['info.outcome.by.runs','info.outcome.by.wickets', 'info.overs']].corr() #
 
 
+
+
+
+
+
 #numpy
 # Assuming 'runs' and 'wickets' arrays are extracted from the dataframe
 [span_78](start_span)runs = df['info.outcome.by.runs'].dropna().values #[span_78](end_span)
@@ -207,15 +229,9 @@ corr_data = df[['info.outcome.by.runs','info.outcome.by.wickets', 'info.overs']]
 positive_runs = runs[runs > 0]
 [span_91](start_span)print(np.log(positive_runs[:10])) #[span_91](end_span)
 
-# 13. np.corrcoef() - Correlation between two arrays
-min_len = min(len(runs), len(wickets))
-[span_92](start_span)print(np.corrcoef(runs[:min_len], wickets[:min_len])) #[span_92](end_span)
 
-# 14. np.percentile() - Percentile value
-[span_93](start_span)print(np.percentile(runs, 75)) #[span_93](end_span)
 
-# 15. np.where() - Conditional filtering
-[span_94](start_span)print(np.where(runs > 50)) #[span_94](end_span)
+
 
 
 
@@ -246,48 +262,8 @@ plt.show()
 [span_64](start_span)plt.boxplot(df['info.outcome.by.wickets'].dropna()) #[span_64](end_span)
 plt.show()
 
-# 6. plt.pie() - Category proportion
-temp_pie = df['info.toss.decision'].value_counts()
-[span_65](start_span)plt.pie(temp_pie.values, labels=temp_pie.index, autopct='%1.1f%%') #[span_65](end_span)
-plt.show()
 
-# 7. plt.stem() - Discrete data points
-[span_66](start_span)plt.stem(temp['info.match_type_number'], temp['info.outcome.by.runs']) #[span_66](end_span)
-plt.show()
 
-# 8. plt.step() - Stepwise trend
-[span_67](start_span)plt.step(temp['info.match_type_number'], temp['info.outcome.by.runs']) #[span_67](end_span)
-plt.show()
-
-# 9. plt.fill_between() - Fills area under line
-[span_68](start_span)plt.fill_between(temp['info.match_type_number'], temp['info.outcome.by.runs']) #[span_68](end_span)
-plt.show()
-
-# 10. plt.errorbar() - Values with error bars
-[span_69](start_span)plt.errorbar(temp['info.match_type_number'], temp['info.outcome.by.runs'], yerr=2) #[span_69](end_span)
-plt.show()
-
-# 11. plt.stackplot() - Cumulative stacked data
-[span_70](start_span)temp_stack = df[['info.match_type_number', 'info.outcome.by.runs', 'info.outcome.by.wickets']].dropna().head(20) #[span_70](end_span)
-[span_71](start_span)plt.stackplot(temp_stack['info.match_type_number'], temp_stack['info.outcome.by.runs'], temp_stack['info.outcome.by.wickets']) #[span_71](end_span)
-plt.show()
-
-# 12. plt.vlines() - Vertical lines
-[span_72](start_span)plt.vlines(temp['info.match_type_number'], 0, temp['info.outcome.by.runs']) #[span_72](end_span)
-plt.show()
-
-# 13. plt.hlines() - Horizontal lines
-[span_73](start_span)plt.hlines(temp['info.outcome.by.runs'], 0, temp['info.match_type_number']) #[span_73](end_span)
-plt.show()
-
-# 14. plt.hexbin() - Density plot for large scatter data
-temp_hex = df[['info.outcome.by.runs', 'info.outcome.by.wickets']].dropna()
-[span_74](start_span)plt.hexbin(temp_hex['info.outcome.by.runs'], temp_hex['info.outcome.by.wickets']) #[span_74](end_span)
-plt.show()
-
-# 15. plt.eventplot() - Occurrence of events
-[span_75](start_span)plt.eventplot(df['info.outcome.by.runs'].dropna().head(30)) #[span_75](end_span)
-plt.show()
 
 
 #seaborn
@@ -317,44 +293,5 @@ plt.show()
 
 # 6. sns.countplot() - Counts occurrences of categories
 [span_102](start_span)sns.countplot(data=df, x='info.toss.decision') #[span_102](end_span)
-plt.show()
-
-# 7. sns.violinplot() - Distribution + density
-[span_103](start_span)sns.violinplot(data=temp_bar, x='info.gender', y='info.outcome.by.runs') #[span_103](end_span)
-plt.show()
-
-# 8. sns.stripplot() - Individual observations
-[span_104](start_span)sns.stripplot(data=temp_bar, x='info.gender', y='info.outcome.by.runs') #[span_104](end_span)
-plt.show()
-
-# 9. sns.swarmplot() - Non-overlapping categorical scatter
-[span_105](start_span)sns.swarmplot(data=temp_bar.sample(200), x='info.gender', y='info.outcome.by.runs') #[span_105](end_span)
-plt.show()
-
-# 10. sns.heatmap() - Visual correlation matrix
-corr = df[['info.outcome.by.runs','info.outcome.by.wickets','info.overs','info.match_type_number']].corr()
-[span_106](start_span)sns.heatmap(corr, annot=True) #[span_106](end_span)
-plt.show()
-
-# 11. sns.pairplot() - Pairwise relationships
-[span_107](start_span)sns.pairplot(df[['info.outcome.by.runs', 'info.outcome.by.wickets', 'info.overs']].dropna()) #[span_107](end_span)
-plt.show()
-
-# 12. sns.kdeplot() - Smooth probability density curve
-[span_108](start_span)sns.kdeplot(data=df, x='info.outcome.by.runs') #[span_108](end_span)
-plt.show()
-
-# 13. sns.regplot() - Regression trend
-temp_reg = df[['info.outcome.by.runs','info.outcome.by.wickets']].dropna()
-[span_109](start_span)sns.regplot(data=temp_reg, x='info.outcome.by.runs', y='info.outcome.by.wickets') #[span_109](end_span)
-plt.show()
-
-# 14. sns.catplot() - General categorical plot
-temp_cat = df[['info.gender', 'info.outcome.by.runs']].dropna()
-[span_110](start_span)sns.catplot(data=temp_cat, x='info.gender', y='info.outcome.by.runs', kind='box') #[span_110](end_span)
-plt.show()
-
-# 15. sns.displot() - Distribution plot (hist/kde)
-[span_111](start_span)sns.displot(data=df, x='info.outcome.by.runs') #[span_111](end_span)
 plt.show()
 
